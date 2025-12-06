@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xtron Software - Smart Solutions</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background: white;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4facfe;
+            text-decoration: none;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 150px 0 100px;
+            background: white;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .hero p {
+            font-size: 1.2em;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+        
+        /* Features */
+        .features {
+            padding: 100px 0;
+            background: #f8f9fa;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        /* CTA Button */
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin: 30px 0;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(79, 172, 254, 0.3);
+        }
+        
+        /* Form Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 2000;
+            animation: fadeIn 0.3s;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 500px;
+            margin: 100px auto;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        
+        .close {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #999;
+        }
+        
+        .close:hover {
+            color: #333;
+        }
+        
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #4facfe;
+            outline: none;
+        }
+        
+        /* Success Message */
+        .success-message {
+            background: #4CAF50;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            display: none;
+        }
+        
+        /* Footer */
+        footer {
+            background: #222;
+            color: white;
+            padding: 50px 0;
+            text-align: center;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5em;
+            }
+            
+            .modal-content {
+                margin: 50px 20px;
+                padding: 30px 20px;
+            }
+        }
+    </style>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">
+                    <i class="fas fa-robot"></i> Xcom Softwares
+                </a>
+                <div>
+                    <a href="#features" class="cta-button" style="padding: 10px 25px; font-size: 1em;">Features</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Transform Your Workflow with Xcom Software</h1>
+            <p>Intelligent solutions for people who wana ascend.</p>
+            
+            <!-- Main CTA Button -->
+            <button class="cta-button" id="getSoftwareBtn">
+                <i class="fas fa-download"></i> Get a software
+            </button>
+            
+            <p style="font-size: 0.9em; color: #888; margin-top: 10px;">Limited time offer - Get started today!</p>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 style="text-align: center; font-size: 2.5em; margin-bottom: 20px; color: #333;">Powerful Features</h2>
+            <p style="text-align: center; color: #666; max-width: 800px; margin: 0 auto 50px;">Everything you need to streamline your operations</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-chart-line" style="font-size: 2em; color: #4facfe; margin-bottom: 20px;"></i>
+                    <h3>Crypto Jarvis (only RS 3000) </h3>
+                    <p>Pre-built market analysing tool to help you in trading specially futures.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fas fa-robot" style="font-size: 2em; color: #4facfe; margin-bottom: 20px;"></i>
+                    <h3>Customisable AI Chat Assistant bot (starts from Rs 1500)</h3>
+                    <p>24/7 chatbot support according to your need</p>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fas fa-chart-line" style="font-size: 2em; color: #4facfe; margin-bottom: 20px;"></i>
+                    <h3>Employee Management System (from Rs 2000 to Rs 4500)</h3>
+                    <p></p>
+                </div>
+                
+               <div class="feature-card">
+                    <i class="fas fa-chart-line" style="font-size: 2em; color: #4facfe; margin-bottom: 20px;"></i>
+                    <h3>Employee Management System (from Rs 2000 to Rs 4500)</h3>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Second CTA -->
+    <section style="background: white; padding: 80px 0; text-align: center;">
+        <div class="container">
+            <h2 style="font-size: 2.5em; margin-bottom: 20px; color: #333;">Ready to Get Started?</h2>
+            <p style="font-size: 1.2em; color: #666; max-width: 700px; margin: 0 auto 40px;">Join hundreds of satisfied users who have transformed their workflow with Xtron Software.</p>
+            <button class="cta-button" id="getSoftwareBtn2">
+                <i class="fas fa-rocket"></i> Get Xtron Now!
+            </button>
+        </div>
+    </section>
+
+    <!-- Form Modal -->
+    <div id="formModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 style="color: #4facfe; margin-bottom: 30px;">Get Xtron Software</h2>
+            
+            <div id="successMessage" class="success-message" style="display: none;">
+                <i class="fas fa-check-circle"></i> Thank you! We'll contact you shortly.
+            </div>
+            
+            <form id="leadForm">
+                <div class="form-group">
+                    <label for="product">Select Product:</label>
+                    <select id="product" name="product" required>
+                        <option value="">Choose a product</option>
+                        <option value="Crypto bot">Crypto Jarvis</option>
+                        <option value="Chatbot">Xtron Chatbot Assistant</option>
+                        <option value="EMS">Employee Management System</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="name">Your Name:</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" name="phone" placeholder="Enter your WhatsApp number" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email (Optional):</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email">
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Additional Requirements:</label>
+                    <textarea id="message" name="message" rows="3" placeholder="Any specific requirements or questions..." style="width: 100%; padding: 12px 15px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 16px;"></textarea>
+                </div>
+                
+                <button type="submit" class="cta-button" style="width: 100%;">
+                    <i class="fab fa-whatsapp"></i> Send WhatsApp Request
+                </button>
+                
+                <p style="font-size: 0.9em; color: #888; margin-top: 15px; text-align: center;">
+                    We'll contact you on WhatsApp within 24 hours.
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <h3 style="margin-bottom: 20px;"><i class="fas fa-robot"></i> Xtron Software</h3>
+            <p style="color: #aaa; max-width: 600px; margin: 0 auto 30px;">
+                Professional software solutions for land records management and database automation.
+            </p>
+            <p style="color: #aaa;">
+                <i class="fas fa-phone"></i> Contact: +91-XXXXXXXXXX | 
+                <i class="fas fa-envelope"></i> info@xtron.com
+            </p>
+            <p style="color: #777; margin-top: 30px; font-size: 0.9em;">
+                � 2024 Xtron Software. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // WhatsApp Notification Script
+        // REPLACE THIS WITH YOUR ACTUAL WHATSAPP NUMBER
+        const YOUR_WHATSAPP_NUMBER = "918371904336"; // Format: 91XXXXXXXXXX (India)
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('formModal');
+            const closeBtn = document.querySelector('.close');
+            const successMessage = document.getElementById('successMessage');
+            const leadForm = document.getElementById('leadForm');
+            
+            // Open modal on button click
+            document.getElementById('getSoftwareBtn').addEventListener('click', openModal);
+            document.getElementById('getSoftwareBtn2').addEventListener('click', openModal);
+            
+            // Close modal
+            closeBtn.addEventListener('click', closeModal);
+            window.addEventListener('click', function(e) {
+                if (e.target === modal) closeModal();
+            });
+            
+            function openModal() {
+                modal.style.display = 'block';
+                successMessage.style.display = 'none';
+                leadForm.reset();
+            }
+            
+            function closeModal() {
+                modal.style.display = 'none';
+            }
+            
+            // Form submission
+            leadForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form data
+                const product = document.getElementById('product').value;
+                const name = document.getElementById('name').value;
+                const phone = document.getElementById('phone').value;
+                const email = document.getElementById('email').value;
+                const message = document.getElementById('message').value;
+                
+                // Create WhatsApp message
+                const whatsappMessage = `?? *NEW LEAD - Xtron Software*%0A%0A` +
+                                       `*Product:* ${product}%0A` +
+                                       `*Name:* ${name}%0A` +
+                                       `*Phone:* ${phone}%0A` +
+                                       `*Email:* ${email || 'Not provided'}%0A` +
+                                       `*Message:* ${message || 'No additional message'}%0A%0A` +
+                                       `*Time:* ${new Date().toLocaleString()}%0A` +
+                                       `*Source:* Website Form`;
+                
+                // Create WhatsApp URL
+                const whatsappURL = `https://wa.me/${YOUR_WHATSAPP_NUMBER}?text=${whatsappMessage}`;
+                
+                // Open WhatsApp in new tab
+                window.open(whatsappURL, '_blank');
+                
+                // Show success message
+                successMessage.style.display = 'block';
+                
+                // Optional: Send to your server/Google Sheets
+                // sendToBackend({ product, name, phone, email, message });
+                
+                // Reset form after 3 seconds
+                setTimeout(() => {
+                    leadForm.reset();
+                    successMessage.style.display = 'none';
+                }, 3000);
+            });
+            
+            // Optional: Send to backend/Google Sheets
+            function sendToBackend(data) {
+                fetch('YOUR_BACKEND_ENDPOINT', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Data saved:', data);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            }
+            
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
