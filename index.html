@@ -228,7 +228,7 @@
                     <i class="fas fa-robot"></i> Xcom Softwares
                 </a>
                 <div>
-                    <a href="#features" class="cta-button" style="padding: 10px 25px; font-size: 1em;">Features</a>
+                    <button id="featuresBtn" class="cta-button" style="padding: 10px 25px; font-size: 1em;">Features</button>
                 </div>
             </nav>
         </div>
@@ -291,53 +291,33 @@
     </section>
 
     <!-- Form Modal -->
+        <!-- Form Modal -->
     <div id="formModal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content" style="max-width: 400px; padding: 25px;">
             <span class="close">&times;</span>
-            <h2 style="color: #4facfe; margin-bottom: 30px;">Get Xtron Software</h2>
+            <h3 style="color: #4facfe; margin-bottom: 20px; text-align: center;">Get Software Now</h3>
             
-            <div id="successMessage" class="success-message" style="display: none;">
-                <i class="fas fa-check-circle"></i> Thank you! We'll contact you shortly.
-            </div>
-            
-            <form id="leadForm">
+            <form id="leadForm" style="margin-top: 20px;">
                 <div class="form-group">
-                    <label for="product">Select Product:</label>
-                    <select id="product" name="product" required>
-                        <option value="">Choose a product</option>
-                        <option value="Crypto bot">Crypto Jarvis</option>
-                        <option value="Chatbot">Xtron Chatbot Assistant</option>
-                        <option value="EMS">Employee Management System</option>
+                    <select id="product" name="product" required style="width: 100%; padding: 10px; margin-bottom: 15px;">
+                        <option value="">Choose product</option>
+                        <option value="Crypto bot">Crypto Jarvis ₹3000</option>
+                        <option value="Chatbot">Chatbot from ₹1500</option>
+                        <option value="EMS">EMS from ₹2000</option>
                     </select>
                 </div>
                 
                 <div class="form-group">
-                    <label for="name">Your Name:</label>
-                    <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                    <input type="text" id="name" name="name" placeholder="Your Name" required style="width: 100%; padding: 10px; margin-bottom: 15px;">
                 </div>
                 
                 <div class="form-group">
-                    <label for="phone">Phone Number:</label>
-                    <input type="tel" id="phone" name="phone" placeholder="Enter your WhatsApp number" required>
+                    <input type="tel" id="phone" name="phone" placeholder="WhatsApp Number" required style="width: 100%; padding: 10px; margin-bottom: 15px;">
                 </div>
                 
-                <div class="form-group">
-                    <label for="email">Email (Optional):</label>
-                    <input type="email" id="email" name="email" placeholder="Enter your email">
-                </div>
-                
-                <div class="form-group">
-                    <label for="message">Additional Requirements:</label>
-                    <textarea id="message" name="message" rows="3" placeholder="Any specific requirements or questions..." style="width: 100%; padding: 12px 15px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 16px;"></textarea>
-                </div>
-                
-                <button type="submit" class="cta-button" style="width: 100%;">
-                    <i class="fab fa-whatsapp"></i> Send WhatsApp Request
+                <button type="submit" class="cta-button" style="width: 100%; padding: 12px; font-size: 1em;">
+                    <i class="fab fa-whatsapp"></i> Send on WhatsApp
                 </button>
-                
-                <p style="font-size: 0.9em; color: #888; margin-top: 15px; text-align: center;">
-                    We'll contact you on WhatsApp within 24 hours.
-                </p>
             </form>
         </div>
     </div>
@@ -359,98 +339,101 @@
         </div>
     </footer>
 
-          <script>
-        // WhatsApp Notification Script
+                  <script>
+        // Simple form handler - no scroll interference
         const YOUR_WHATSAPP_NUMBER = "918207084432";
         
-        document.addEventListener('DOMContentLoaded', function() {
-            const modal = document.getElementById('formModal');
-            const closeBtn = document.querySelector('.close');
-            const successMessage = document.getElementById('successMessage');
-            const leadForm = document.getElementById('leadForm');
-            
-            // Smooth scroll ONLY for Features link in header
-            const featuresLink = document.querySelector('a[href="#features"]');
-            if (featuresLink) {
-                featuresLink.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetElement = document.querySelector('#features');
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            }
-            
-            // Open modal on button click
-            document.getElementById('getSoftwareBtn').addEventListener('click', function(e) {
+        // Get elements
+        const modal = document.getElementById('formModal');
+        const closeBtn = document.querySelector('.close');
+        const form = document.getElementById('leadForm');
+        const getSoftwareBtn = document.getElementById('getSoftwareBtn');
+        const getSoftwareBtn2 = document.getElementById('getSoftwareBtn2');
+        const featuresBtn = document.querySelector('a[href="#features"]');
+        
+        // Open modal when buttons clicked
+        if (getSoftwareBtn) {
+            getSoftwareBtn.onclick = function(e) {
                 e.preventDefault();
-                openModal();
-            });
-            
-            document.getElementById('getSoftwareBtn2').addEventListener('click', function(e) {
-                e.preventDefault();
-                openModal();
-            });
-            
-            // Close modal
-            closeBtn.addEventListener('click', closeModal);
-            window.addEventListener('click', function(e) {
-                if (e.target === modal) closeModal();
-            });
-            
-            function openModal() {
                 modal.style.display = 'block';
-                successMessage.style.display = 'none';
-                leadForm.reset();
-                document.body.style.overflow = 'hidden'; // Prevent background scroll
-            }
-            
-            function closeModal() {
+                document.body.style.overflow = 'hidden';
+            };
+        }
+        
+        if (getSoftwareBtn2) {
+            getSoftwareBtn2.onclick = function(e) {
+                e.preventDefault();
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            };
+        }
+        
+        // Close modal
+        if (closeBtn) {
+            closeBtn.onclick = function() {
                 modal.style.display = 'none';
-                document.body.style.overflow = 'auto'; // Restore scroll
+                document.body.style.overflow = 'auto';
+            };
+        }
+        
+        // Close when clicking outside
+        window.onclick = function(e) {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
             }
-            
-            // Form submission
-            leadForm.addEventListener('submit', function(e) {
+        };
+        
+        // Features button scroll (simple)
+        if (featuresBtn) {
+            featuresBtn.onclick = function(e) {
+                e.preventDefault();
+                const featuresSection = document.getElementById('features');
+                if (featuresSection) {
+                    featuresSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            };
+        }
+        
+        // Form submission
+        if (form) {
+            form.onsubmit = function(e) {
                 e.preventDefault();
                 
-                // Get form data
                 const product = document.getElementById('product').value;
                 const name = document.getElementById('name').value;
                 const phone = document.getElementById('phone').value;
-                const email = document.getElementById('email').value;
-                const message = document.getElementById('message').value;
                 
-                // Create WhatsApp message
-                const whatsappMessage = `📱 *NEW LEAD - Xtron Software*%0A%0A` +
-                                       `*Product:* ${product}%0A` +
-                                       `*Name:* ${name}%0A` +
-                                       `*Phone:* ${phone}%0A` +
-                                       `*Email:* ${email || 'Not provided'}%0A` +
-                                       `*Message:* ${message || 'No additional message'}%0A%0A` +
-                                       `*Time:* ${new Date().toLocaleString()}%0A` +
-                                       `*Source:* Website Form`;
+                if (!product || !name || !phone) {
+                    alert('Please fill all required fields');
+                    return;
+                }
                 
-                // Create WhatsApp URL
-                const whatsappURL = `https://wa.me/${YOUR_WHATSAPP_NUMBER}?text=${whatsappMessage}`;
+                const message = `📱 *NEW SOFTWARE REQUEST*%0A%0A` +
+                               `*Product:* ${product}%0A` +
+                               `*Name:* ${name}%0A` +
+                               `*Phone:* ${phone}%0A` +
+                               `*Time:* ${new Date().toLocaleString()}`;
                 
-                // Open WhatsApp in new tab
+                const whatsappURL = `https://wa.me/${YOUR_WHATSAPP_NUMBER}?text=${message}`;
+                
+                // Open WhatsApp
                 window.open(whatsappURL, '_blank');
                 
-                // Show success message
-                successMessage.style.display = 'block';
+                // Reset form and close modal
+                form.reset();
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
                 
-                // Reset form after 3 seconds
-                setTimeout(() => {
-                    leadForm.reset();
-                    successMessage.style.display = 'none';
-                    closeModal();
-                }, 3000);
-            });
-        });
+                // Show alert
+                alert('WhatsApp opened! We\'ll contact you soon.');
+            };
+        }
+        
+        // Prevent hash scrolling
+        window.addEventListener('hashchange', function(e) {
+            e.preventDefault();
+        }, false);
     </script>
 </body>
 
