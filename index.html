@@ -274,11 +274,7 @@
                     <p></p>
                 </div>
                 
-               <div class="feature-card">
-                    <i class="fas fa-chart-line" style="font-size: 2em; color: #4facfe; margin-bottom: 20px;"></i>
-                    <h3>Employee Management System (from Rs 2000 to Rs 4500)</h3>
-                    <p></p>
-                </div>
+              
             </div>
         </div>
     </section>
@@ -363,10 +359,9 @@
         </div>
     </footer>
 
-    <script>
+       <script>
         // WhatsApp Notification Script
-        // REPLACE THIS WITH YOUR ACTUAL WHATSAPP NUMBER
-        const YOUR_WHATSAPP_NUMBER = "918207084432"; // Format: 91XXXXXXXXXX (India)
+        const YOUR_WHATSAPP_NUMBER = "918207084432";
         
         document.addEventListener('DOMContentLoaded', function() {
             const modal = document.getElementById('formModal');
@@ -374,9 +369,31 @@
             const successMessage = document.getElementById('successMessage');
             const leadForm = document.getElementById('leadForm');
             
+            // Smooth scroll ONLY for Features link in header
+            const featuresLink = document.querySelector('a[href="#features"]');
+            if (featuresLink) {
+                featuresLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetElement = document.querySelector('#features');
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            }
+            
             // Open modal on button click
-            document.getElementById('getSoftwareBtn').addEventListener('click', openModal);
-            document.getElementById('getSoftwareBtn2').addEventListener('click', openModal);
+            document.getElementById('getSoftwareBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                openModal();
+            });
+            
+            document.getElementById('getSoftwareBtn2').addEventListener('click', function(e) {
+                e.preventDefault();
+                openModal();
+            });
             
             // Close modal
             closeBtn.addEventListener('click', closeModal);
@@ -388,10 +405,12 @@
                 modal.style.display = 'block';
                 successMessage.style.display = 'none';
                 leadForm.reset();
+                document.body.style.overflow = 'hidden'; // Prevent background scroll
             }
             
             function closeModal() {
                 modal.style.display = 'none';
+                document.body.style.overflow = 'auto'; // Restore scroll
             }
             
             // Form submission
@@ -406,7 +425,7 @@
                 const message = document.getElementById('message').value;
                 
                 // Create WhatsApp message
-                const whatsappMessage = `?? *NEW LEAD - Xtron Software*%0A%0A` +
+                const whatsappMessage = `📱 *NEW LEAD - Xtron Software*%0A%0A` +
                                        `*Product:* ${product}%0A` +
                                        `*Name:* ${name}%0A` +
                                        `*Phone:* ${phone}%0A` +
@@ -424,52 +443,16 @@
                 // Show success message
                 successMessage.style.display = 'block';
                 
-                // Optional: Send to your server/Google Sheets
-                // sendToBackend({ product, name, phone, email, message });
-                
                 // Reset form after 3 seconds
                 setTimeout(() => {
                     leadForm.reset();
                     successMessage.style.display = 'none';
+                    closeModal();
                 }, 3000);
-            });
-            
-            // Optional: Send to backend/Google Sheets
-            function sendToBackend(data) {
-                fetch('YOUR_BACKEND_ENDPOINT', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Data saved:', data);
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-            }
-            
-            // Smooth scroll for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
             });
         });
     </script>
 </body>
 
 </html>
+
